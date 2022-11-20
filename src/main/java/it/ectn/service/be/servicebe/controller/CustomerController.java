@@ -20,7 +20,7 @@ public class CustomerController {
 	
 	@GetMapping("")
 	public List<Customer> searchCustomer(){
-		return this.customerService.getCustomers();
+		return this.customerService.searchCustomers();
 	}
 	
 	
