@@ -21,9 +21,10 @@ import it.ectn.service.be.servicebe.contract.request.CustomerPatchRequest;
 import it.ectn.service.be.servicebe.contract.response.CustomerSearchResponse;
 import it.ectn.service.be.servicebe.exception.ApiException;
 import it.ectn.service.be.servicebe.service.CustomerService;
+import it.ectn.service.be.servicebe.utils.Constants;
 
 @RestController
-@RequestMapping("/enrctn/service/be/resources/customers")
+@RequestMapping(Constants.BASE_PATH+"/customers")
 public class CustomerController {
 
 	@Autowired
@@ -32,32 +33,35 @@ public class CustomerController {
 	@GetMapping("")
 	public ResponseEntity<CustomerSearchResponse> searchCustomer(){
 		List<Customer> customerList = this.customerService.searchCustomers();
-		
 		CustomerSearchResponse response = new CustomerSearchResponse();
 		response.setCustomers(customerList);
+		
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Customer> getCustomer(@PathVariable("id") String id) throws ApiException{
 		Customer customer = this.customerService.getCustomer(id);
+		
 		return new ResponseEntity<>(customer,HttpStatus.OK);
 	}
 
 	@PostMapping(value="",consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Customer> insertCustomer(@RequestBody CustomerInsertRequest customerInsertRequest) throws ApiException{
 		Customer customer = this.customerService.insertCustomer(customerInsertRequest);
+		
 		return new ResponseEntity<>(customer,HttpStatus.CREATED);
 	}
 	
 	@PatchMapping(value="/{id}",consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Customer> patchCustomer(@PathVariable("id") String id,@RequestBody CustomerPatchRequest customerPatchRequest) throws ApiException{
 		Customer customer = this.customerService.patchCustomer(id,customerPatchRequest);
+		
 		return new ResponseEntity<>(customer,HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value="/{id}")
-	public ResponseEntity<Void> deleteCustomer(String id){
+	public ResponseEntity<Void> deleteCustomer(String id) throws ApiException{
 		this.customerService.deleteCustomer(id);
 		
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

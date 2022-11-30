@@ -10,11 +10,12 @@ import it.ectn.service.be.servicebe.exception.ApiException;
 import it.ectn.service.be.servicebe.mapper.CustomerMapper;
 import it.ectn.service.be.servicebe.model.CustomerView;
 import it.ectn.service.be.servicebe.repository.CustomerRepository;
-import it.ectn.service.be.servicebe.utils.Utils;
+import it.ectn.service.be.servicebe.utils.Constants;
 import it.ectn.service.be.servicebe.utils.EnumUtils.ErrorsEnum;
+import it.ectn.service.be.servicebe.utils.Utils;
 
 @Service
-public class CustomerService {
+public class CustomerService extends SuperService {
 
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -37,25 +38,28 @@ public class CustomerService {
 		customer.setId(newUUID);
 		
 		int insert = this.customerRepository.insert(customer);
-		if(insert!=1) {
-			throw new ApiException(ErrorsEnum.CUSTOMER_GENRICO_ERROR);
-		}
+		this.manageGenericException(insert);
 		return this.getCustomer(newUUID);
 	}
 	
 	public Customer patchCustomer(String id,Customer customer) throws ApiException {
-		this.getCustomer(id);
+		this.checkCustomer(id);
 		customer.setId(id);
 		
 		int update = this.customerRepository.update(customer);
-		if(update!=1) {
-			throw new ApiException(ErrorsEnum.CUSTOMER_GENRICO_ERROR);
-		}
+		this.manageGenericException(update);
 		return this.getCustomer(customer.getId());
 	}
 	
-	public void deleteCustomer(String id) {	
-		this.customerRepository.delete(id);
+	public void deleteCustomer(String id) throws ApiException {	
+		this.checkCustomer(id);
+		int delete = this.customerRepository.delete(id);
+		this.manageGenericException(delete);
+	}
+	
+	private boolean checkCustomer(String id) throws ApiException {
+		this.getCustomer(id);
+		return true;
 	}
 	
 }

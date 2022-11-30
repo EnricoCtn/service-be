@@ -30,9 +30,21 @@ public class EnumUtils {
 		public String getDescrizione() {
 			return descrizione;
 		}
-		
 	}
 	
-	
+	public static enum DeviceStatusEnum {
+
+		ACTIVE("ACTIVE"), LOST("LOST"), INACTIVE("INACTIVE");
+
+		private final String codice;
+
+		DeviceStatusEnum(String codice) {
+			this.codice = codice;
+		}
+
+		public String getCodice() {
+			return codice;
+		}
+	}
 	
 }
