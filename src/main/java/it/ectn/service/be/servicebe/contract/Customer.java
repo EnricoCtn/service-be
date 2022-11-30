@@ -7,7 +7,7 @@ public class Customer {
 	private String surname;
 	private String fiscalCode;
 	private String andress;
-	
+
 	public String getId() {
 		return id;
 	}

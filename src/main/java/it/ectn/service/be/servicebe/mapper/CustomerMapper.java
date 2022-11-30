@@ -1,4 +1,4 @@
-package mapper;
+package it.ectn.service.be.servicebe.mapper;
 
 import java.util.List;
 
@@ -20,6 +20,11 @@ public interface CustomerMapper {
 	@Mapping(source="fiscalCode",target = "fiscalCode")
 	@Mapping(source="andress",target = "andress")
 	
-	List<Customer> conver(List<CustomerView> customerView);
-	Customer conver(CustomerView customerView);
+	List<Customer> convertFromView(List<CustomerView> customerView);
+	Customer convertFromView(CustomerView customerView);
+	
+	List<CustomerView> convert(List<Customer> customerView);
+	CustomerView convert(Customer customerView);
+	
+	
 }

@@ -23,6 +23,14 @@ public interface CustomerRepository {
 	@Result(column = "ANDRESS",property = "andress")
 	List<CustomerView> select();
 	
+	@Select("SELECT * FROM CUSTOMER WHERE id=#{id}")
+	@Result(column = "ID",property = "id")
+	@Result(column = "NAME",property = "name")
+	@Result(column = "SURNAME",property = "surname")
+	@Result(column = "FISCAL_CODE",property = "fiscalCode")
+	@Result(column = "ANDRESS",property = "andress")
+	CustomerView selectCustomer(String id);
+	
 	@Insert("INSERT INTO CUSTOMER(ID,NAME,SURNAME,FISCAL_CODE,ANDRESS) "
 			+ "VALUES(#{id},#{name},#{surname},#{fiscalCode},#{andress})")
 	int insert(Customer customer);
