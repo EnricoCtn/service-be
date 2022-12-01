@@ -16,7 +16,8 @@ public class ApiExceptionHandler {
 	}
 	
 	@ExceptionHandler(Exception.class)
-	public final ResponseEntity<ErrorItem> handleGenericException(ApiException apiException){
+	public final ResponseEntity<ErrorItem> handleGenericException(Exception exception){
+		exception.printStackTrace();
 		return new ResponseEntity<>(new ErrorItem("500","Errore Generico"),HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	

@@ -20,7 +20,7 @@ public class DeviceService extends SuperService {
 	private DeviceRepository deviceRepository;
 	
 	public List<Device> searchDevices(){
-		List<DeviceView> listDeviceView = this.deviceRepository.select();
+		List<DeviceView> listDeviceView = this.deviceRepository.select(new Device());
 		return DeviceMapper.INSTANCE.convertFromView(listDeviceView);
 	}
 	
