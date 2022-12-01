@@ -25,11 +25,13 @@ public class DeviceService extends SuperService {
 	}
 	
 	public Device getDevice(String id) throws ApiException {
-		DeviceView customerView = this.deviceRepository.selectDevice(id);
-		if(customerView==null) {
+		Device device = new Device();
+		device.setId(id);
+		List<DeviceView> listDeviceView = this.deviceRepository.select(device);
+		if(listDeviceView==null || listDeviceView.isEmpty()) {
 			throw new ApiException(ErrorsEnum.CUSTOMER_NOT_FOUND);
 		}
-		return DeviceMapper.INSTANCE.convertFromView(customerView);
+		return DeviceMapper.INSTANCE.convertFromView(listDeviceView.get(0));
 	}
 	
 	public Device insertDevice(Device customer) throws ApiException {

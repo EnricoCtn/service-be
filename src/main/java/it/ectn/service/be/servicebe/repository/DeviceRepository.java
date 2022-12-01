@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
@@ -26,12 +25,6 @@ public interface DeviceRepository {
 		@Result(column = "STATUS",property = "status")
 	})
 	List<DeviceView> select(Device device);
-	
-	@Select("SELECT * FROM DEVICE WHERE ID=#{id}")
-	@Result(column = "ID",property = "id")
-	@Result(column = "ID_USER",property = "idUser")
-	@Result(column = "STATUS",property = "stauts")
-	DeviceView selectDevice(String id);
 	
 	@Insert("INSERT INTO DEVICE(ID,ID_USER,STATUS) "
 			+ "VALUES(#{id},#{idUser},#{status}")
